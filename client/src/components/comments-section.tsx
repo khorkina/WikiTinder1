@@ -39,18 +39,10 @@ export default function CommentsSection({ article }: CommentsSectionProps) {
     },
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Comments</h2>
-      
+    <div className="space-y-8">
+      <h2 className="text-xl font-semibold">Discussion</h2>
+
       <form 
         onSubmit={(e) => {
           e.preventDefault();
@@ -61,10 +53,10 @@ export default function CommentsSection({ article }: CommentsSectionProps) {
         className="space-y-4"
       >
         <Textarea
-          placeholder="Write a comment..."
+          placeholder="Share your thoughts on this article..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="min-h-[100px]"
+          className="min-h-[100px] resize-none"
         />
         <Button 
           type="submit" 
@@ -80,21 +72,33 @@ export default function CommentsSection({ article }: CommentsSectionProps) {
         </Button>
       </form>
 
-      <div className="space-y-4">
-        {comments?.length === 0 ? (
-          <p className="text-muted-foreground text-center py-4">
-            No comments yet. Be the first to comment!
-          </p>
+      <div className="space-y-6">
+        {isLoading ? (
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
+        ) : comments?.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-muted-foreground">
+              No comments yet. Start the discussion!
+            </p>
+          </div>
         ) : (
-          comments?.map((comment) => (
-            <div key={comment.id} className="border rounded-lg p-4 space-y-2">
-              <div className="flex items-center justify-between text-sm text-muted-foreground">
-                <span className="font-medium">{user?.id === comment.userId ? "You" : `User #${comment.userId}`}</span>
-                <span>{formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}</span>
+          <div className="divide-y">
+            {comments?.map((comment) => (
+              <div key={comment.id} className="py-4 space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium">
+                    {user?.id === comment.userId ? "You" : `User #${comment.userId}`}
+                  </span>
+                  <span className="text-muted-foreground">
+                    {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
+                  </span>
+                </div>
+                <p className="text-sm">{comment.content}</p>
               </div>
-              <p className="text-sm">{comment.content}</p>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
     </div>

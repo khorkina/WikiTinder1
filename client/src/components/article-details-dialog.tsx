@@ -2,6 +2,7 @@ import { Article } from "@shared/schema";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -23,18 +24,21 @@ export default function ArticleDetailsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <div className="flex items-center gap-2">
-            <DialogTitle>{article.title}</DialogTitle>
+          <div className="flex items-center gap-2 mb-2">
+            <DialogTitle className="text-2xl">{article.title}</DialogTitle>
             <Badge variant="secondary" className="uppercase">
               {article.language}
             </Badge>
           </div>
+          <DialogDescription>
+            View article details and join the discussion
+          </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6">
-          <div className="aspect-video relative rounded-lg overflow-hidden">
+        <div className="space-y-8 py-4">
+          <div className="aspect-video relative rounded-lg overflow-hidden bg-muted">
             <img
               src={article.imageUrl}
               alt={article.title}
@@ -42,11 +46,13 @@ export default function ArticleDetailsDialog({
             />
           </div>
 
-          <p className="text-muted-foreground">{article.excerpt}</p>
+          <div className="prose prose-sm max-w-none">
+            <p>{article.excerpt}</p>
+          </div>
 
-          <hr className="my-6" />
-
-          <CommentsSection article={article} />
+          <div className="border-t pt-6">
+            <CommentsSection article={article} />
+          </div>
         </div>
       </DialogContent>
     </Dialog>
