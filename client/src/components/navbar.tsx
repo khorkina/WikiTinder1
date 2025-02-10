@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "./ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { Loader2, Heart, LogOut } from "lucide-react";
+import { Loader2, Heart, TrendingUp, LogOut } from "lucide-react";
 import { LanguageSelector } from "./language-selector";
 
 export default function Navbar() {
@@ -27,6 +27,18 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="gap-2"
+          asChild
+        >
+          <Link href="/trending">
+            <TrendingUp className="h-4 w-4" />
+            Trending
+          </Link>
+        </Button>
+
         <Button
           variant="ghost"
           size="sm"

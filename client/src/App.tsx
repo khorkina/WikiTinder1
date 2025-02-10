@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import AuthPage from "@/pages/auth-page";
 import HomePage from "@/pages/home-page";
 import FavoritesPage from "@/pages/favorites-page";
+import TrendingPage from "@/pages/trending-page";
 import { ProtectedRoute } from "./lib/protected-route";
 import Navbar from "./components/navbar";
 
@@ -18,6 +19,7 @@ function Router() {
         <Route path="/auth" component={AuthPage} />
         <ProtectedRoute path="/" component={HomePage} />
         <ProtectedRoute path="/favorites" component={FavoritesPage} />
+        <ProtectedRoute path="/trending" component={TrendingPage} />
         <Route component={NotFound} />
       </Switch>
     </>
