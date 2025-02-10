@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Article } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { MessageCircle } from "lucide-react";
 import ArticleDetailsDialog from "./article-details-dialog";
 import CommentsSection from "./comments-section";
 
@@ -17,6 +19,7 @@ export default function WikiCard({
   style,
 }: WikiCardProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
   return (
     <>
@@ -46,11 +49,28 @@ export default function WikiCard({
           </CardContent>
         </div>
 
-        <div className="border-t">
-          <CardContent className="p-6">
-            <CommentsSection article={article} />
-          </CardContent>
+        <div className="border-t px-6 py-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="gap-2 w-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowComments(!showComments);
+            }}
+          >
+            <MessageCircle className="h-4 w-4" />
+            {showComments ? "Hide Comments" : "Show Comments"}
+          </Button>
         </div>
+
+        {showComments && (
+          <div className="border-t">
+            <CardContent className="p-6">
+              <CommentsSection article={article} />
+            </CardContent>
+          </div>
+        )}
       </Card>
 
       <ArticleDetailsDialog 
