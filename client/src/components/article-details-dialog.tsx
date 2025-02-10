@@ -7,7 +7,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import CommentsSection from "./comments-section";
 
 interface ArticleDetailsDialogProps {
   article: Article | null;
@@ -33,7 +32,7 @@ export default function ArticleDetailsDialog({
             </Badge>
           </div>
           <DialogDescription>
-            View article details and join the discussion
+            View full article content
           </DialogDescription>
         </DialogHeader>
 
@@ -48,10 +47,6 @@ export default function ArticleDetailsDialog({
 
           <div className="prose prose-sm max-w-none">
             <p>{article.excerpt}</p>
-          </div>
-
-          <div className="border-t pt-6">
-            <CommentsSection article={article} />
           </div>
         </div>
       </DialogContent>

@@ -40,9 +40,7 @@ export default function CommentsSection({ article }: CommentsSectionProps) {
   });
 
   return (
-    <div className="space-y-8">
-      <h2 className="text-xl font-semibold">Discussion</h2>
-
+    <div className="space-y-6">
       <form 
         onSubmit={(e) => {
           e.preventDefault();
@@ -50,44 +48,45 @@ export default function CommentsSection({ article }: CommentsSectionProps) {
             commentMutation.mutate(content);
           }
         }}
-        className="space-y-4"
+        className="space-y-3"
       >
         <Textarea
-          placeholder="Share your thoughts on this article..."
+          placeholder="Share your thoughts..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="min-h-[100px] resize-none"
+          className="min-h-[80px] resize-none"
         />
-        <Button 
-          type="submit" 
-          className="gap-2"
-          disabled={!content.trim() || commentMutation.isPending}
-        >
-          {commentMutation.isPending ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Send className="h-4 w-4" />
-          )}
-          Post Comment
-        </Button>
+        <div className="flex justify-end">
+          <Button 
+            type="submit" 
+            size="sm"
+            className="gap-2"
+            disabled={!content.trim() || commentMutation.isPending}
+          >
+            {commentMutation.isPending ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Send className="h-4 w-4" />
+            )}
+            Post
+          </Button>
+        </div>
       </form>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {isLoading ? (
-          <div className="flex items-center justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <div className="flex items-center justify-center py-4">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
           </div>
         ) : comments?.length === 0 ? (
-          <div className="text-center py-8">
-            <p className="text-muted-foreground">
-              No comments yet. Start the discussion!
-            </p>
-          </div>
+          <p className="text-sm text-muted-foreground text-center py-2">
+            No comments yet. Start the discussion!
+          </p>
         ) : (
           <div className="divide-y">
             {comments?.map((comment) => (
-              <div key={comment.id} className="py-4 space-y-2">
-                <div className="flex items-center justify-between text-sm">
+              <div key={comment.id} className="py-3 space-y-1">
+                <div className="flex items-center justify-between text-xs">
                   <span className="font-medium">
                     {user?.id === comment.userId ? "You" : `User #${comment.userId}`}
                   </span>
