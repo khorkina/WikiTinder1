@@ -24,11 +24,11 @@ export default function WikiCard({
   return (
     <>
       <Card 
-        className="w-full max-w-md mx-auto overflow-hidden shadow-lg"
+        className="w-full max-w-md mx-auto overflow-hidden"
         style={style}
       >
         <div 
-          className="cursor-pointer hover:opacity-90 transition-opacity"
+          className="cursor-pointer"
           onClick={() => setDialogOpen(true)}
         >
           <div className="aspect-video relative">

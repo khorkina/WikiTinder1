@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSpring, animated, to } from "@react-spring/web";
+import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import WikiCard from "./wiki-card";
 import { Article } from "@shared/schema";
@@ -23,24 +23,22 @@ export default function CardStack({
     x: 0,
     y: 0,
     rotation: 0,
-    scale: 1,
   }));
 
   const bind = useDrag(
     ({ down, movement: [mx], direction: [xDir], velocity }) => {
-      const trigger = velocity > 0.2 || Math.abs(mx) > SWIPE_THRESHOLD;
+      const trigger = Math.abs(mx) > SWIPE_THRESHOLD;
       const dir = xDir < 0 ? -1 : 1;
-      
+
       if (!down && trigger) {
         // Swipe completed
         api.start({
           x: dir * window.innerWidth * 1.5,
           rotation: dir * 45,
-          scale: 0.5,
           immediate: false,
           onRest: () => {
             // Reset for next card
-            api.start({ x: 0, y: 0, rotation: 0, scale: 1, immediate: true });
+            api.start({ x: 0, y: 0, rotation: 0, immediate: true });
             if (dir === -1) {
               onSwipeLeft(articles[currentIndex]);
             } else {
@@ -54,7 +52,6 @@ export default function CardStack({
         api.start({
           x: down ? mx : 0,
           rotation: down ? mx / 20 : 0,
-          scale: down ? 1.05 : 1,
           immediate: down,
         });
       }
@@ -77,14 +74,13 @@ export default function CardStack({
       <div className="absolute right-4 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
         <Heart className="h-8 w-8 text-primary" />
       </div>
-      
+
       <animated.div
         {...bind()}
         style={{
           x: props.x,
           y: props.y,
           rotate: props.rotation,
-          scale: props.scale,
           touchAction: "none",
         }}
       >
