@@ -7,7 +7,9 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
 export default defineConfig({
+  base: "/WikiTinder1/", // Указываем имя репозитория
   plugins: [react(), runtimeErrorOverlay(), themePlugin()],
   resolve: {
     alias: {
@@ -21,3 +23,4 @@ export default defineConfig({
     emptyOutDir: true,
   },
 });
+
