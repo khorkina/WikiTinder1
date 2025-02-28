@@ -6,6 +6,8 @@ import { scrypt, randomBytes, timingSafeEqual } from "crypto";
 import { promisify } from "util";
 import { storage } from "./storage";
 import { User as SelectUser } from "@shared/schema";
+import dotenv from "dotenv";
+dotenv.config();
 
 declare global {
   namespace Express {
@@ -39,6 +41,9 @@ export function setupAuth(app: Express) {
   if (app.get("env") === "production") {
     app.set("trust proxy", 1);
   }
+
+  console.log("Session Settings:", sessionSettings);
+
 
   app.use(session(sessionSettings));
   app.use(passport.initialize());

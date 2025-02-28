@@ -40,6 +40,14 @@ export default function WikiCard({
         <CardContent className="p-6 space-y-4">
           <h3 className="font-bold text-xl line-clamp-2">{article.title}</h3>
           <p className="text-muted-foreground line-clamp-3">{article.excerpt}</p>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="w-full mt-2"
+            asChild
+          >
+            <a href={`https://en.wikipedia.org/wiki?curid=${article.wikiId}`} target="_blank" rel="noopener noreferrer">Read More</a>
+          </Button>
         </CardContent>
       </div>
 
@@ -48,20 +56,10 @@ export default function WikiCard({
           variant="ghost"
           size="sm"
           className="gap-2 w-full"
-          onClick={() => setShowComments(!showComments)}
         >
-          <MessageCircle className="h-4 w-4" />
-          {showComments ? "Hide Comments" : "Show Comments"}
+          Comment
         </Button>
       </div>
-
-      {showComments && (
-        <div className="border-t">
-          <CardContent className="p-6">
-            <CommentsSection article={article} />
-          </CardContent>
-        </div>
-      )}
     </Card>
   );
 }
